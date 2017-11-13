@@ -9,9 +9,9 @@ import { addExpense } from './actions/expenses';
 import { setTextFilter } from './actions/filters';
 
 const store = configureStore();
-store.dispatch(addExpense({description: 'tuition fee'}));
-store.dispatch(addExpense({description: 'renting house cost'}));
-store.dispatch(addExpense({description: 'buying furniture cost'}));    
+store.dispatch(addExpense({description: 'tuition fee', amount:100, createdAt:500}));
+store.dispatch(addExpense({description: 'renting house cost', amount:200, createdAt:300}));
+store.dispatch(addExpense({description: 'buying furniture cost', amount:300, createdAt:100}));    
 
 // setTimeout(() => {
 //     store.dispatch(setTextFilter('cost'));

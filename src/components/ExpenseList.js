@@ -9,7 +9,14 @@ const ExpenseList = (props) => {
             <h3>Expense List</h3>
             <p>There are {props.expenses.length} item(s) in the expense list</p>
             {props.expenses.map((expense, index) => (                
-                <ExpenseListItem id={expense.id} key={expense.id} count={index+1} des={expense.description}/>
+                <ExpenseListItem 
+                    id={expense.id} 
+                    key={expense.id} 
+                    count={index+1} 
+                    des={expense.description} 
+                    amount={expense.amount} 
+                    createdAt={expense.createdAt}
+                />
             ))}                  
         </div>
     );
