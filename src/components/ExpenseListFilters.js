@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { setTextFilter, sortByAmount, sortByDate } from '../actions/filters';
 
-
 const ExpenseListFilters = (props) => {
     return (
         <div>
@@ -14,7 +13,7 @@ const ExpenseListFilters = (props) => {
                 if(e.target.value === 'date'){
                     props.dispatch(sortByDate());
                 }else if(e.target.value === 'amount'){
-                    props.dispatch(sortByAmount());
+                    props.dispatch(sortByAmount());                    
                 }             
             }}>
                 <option value="date">Date</option>

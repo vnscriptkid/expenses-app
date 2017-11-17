@@ -3,6 +3,7 @@ const expensesReducerDefaultState = [];
 const expensesReducer = (state = expensesReducerDefaultState, action) => {
     switch (action.type) {
         case 'ADD_EXPENSE':
+            // console.log('reached reducer');
             return [
                 ...state,
                 action.expense
