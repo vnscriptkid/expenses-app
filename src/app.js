@@ -7,6 +7,8 @@ import configureStore from './store/configureStore';
 import { Provider } from 'react-redux';
 import { addExpense } from './actions/expenses';
 import { setTextFilter } from './actions/filters';
+import './firebase/firebase';
+// import './playground/promises';
 
 const store = configureStore();
 store.dispatch(addExpense({description: 'tuition fee', amount:100, createdAt:500}));
