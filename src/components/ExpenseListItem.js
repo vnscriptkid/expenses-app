@@ -16,10 +16,4 @@ const ExpenseListItem = (props) => {
     )
 }
 
-// export default ExpenseListItem;
-
-const mapStateToProps = (state) => {
-    
-}
-
 export default connect()(ExpenseListItem);
