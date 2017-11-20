@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render expense item with expense data provided 1`] = `
+<div>
+  <Link
+    replace={false}
+    to="/edit/1"
+  >
+    <h3
+      style={
+        Object {
+          "color": "green",
+        }
+      }
+    >
+      Gum
+    </h3>
+  </Link>
+  <p>
+     . 
+    Gum
+  </p>
+  <p>
+     Amount 
+    195
+     - Created at 
+    Jan 01 1970
+  </p>
+</div>
+`;

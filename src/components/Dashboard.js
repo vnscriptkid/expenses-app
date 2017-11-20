@@ -3,7 +3,7 @@ import ExpenseListFilters from './ExpenseListFilters';
 import ExpenseList from './ExpenseList';
 import { connect } from 'react-redux';
 
-const Dashboard = (props) => (
+export const Dashboard = (props) => (
     <div>
         <ExpenseListFilters />
         <ExpenseList />

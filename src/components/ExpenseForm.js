@@ -8,11 +8,11 @@ export default class ExpenseForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            description: '',
-            note: '',
-            amount: '',
+            description: props.expense ? props.expense.description : '',
+            note: props.expense ? props.expense.note : '',
+            amount: props.expense ? props.expense.amount.toString() : '',
             error: '',
-            date: moment(),
+            date: props.expense ? moment(props.expense.createdAt) : moment(),
             focused: false
         }
         this.onDescriptionChange = this.onDescriptionChange.bind(this);
@@ -43,7 +43,7 @@ export default class ExpenseForm extends Component {
                 description: this.state.description,
                 amount: parseFloat(this.state.amount),
                 note: this.state.note,
-                createdAt: this.state.date.valueOf()
+                createdAt: this.state.date.valueOf()               
             })
             this.setState(() => ({
                 error: '',

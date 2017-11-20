@@ -1,4 +1,5 @@
 import * as firebase from 'firebase';
+import moment from 'moment';
 
 const config = {
     apiKey: "AIzaSyC9rxr1t9rmspyGLghMdmxmbTSuU_6WHh0",
@@ -12,6 +13,95 @@ const config = {
 firebase.initializeApp(config);
 
 const database = firebase.database();
+
+export { firebase, database as default };
+
+// setTimeout(() => {
+//     console.log('start adding data to db');
+//     database.ref('expenses').push({
+//         des: 'dummy data'
+//     })
+// }, 5000)
+
+// database.ref('expenses').on('child_added', (snapshot) => {
+//     console.log(snapshot.val());
+// })
+
+// database.ref('expenses').on('child_changed', (childSnapshot, prevChildKey) => {
+//     console.log(childSnapshot.val());
+//     console.log(prevChildKey);
+// })
+
+// database.ref('expenses/-Kz9JoR3RgrdlEPOIwRE').update({
+//     where: {
+//         store: 'bookstore',
+//         street: 'Tran Phu',
+//         number: 123
+//     }
+// })
+
+// database.ref('expenses').on('child_changed', ())
+
+// database.ref('expenses')
+//     .on('value', (snapshot) => {
+//         const expenses = [];
+//         console.log('before forEach');
+//         snapshot.forEach((childSnapshot) => {
+//             // console.log('doing stuff');
+//             // console.log(childSnapshot);
+//             const expense = childSnapshot.val();
+//             expenses.push({
+//                 id: childSnapshot.key,
+//                 des: expense.description,
+//                 note: expense.note,
+//                 time: expense.createdAt,
+//                 amount: expense.amount
+//             })
+//         })
+//         console.log('after forEach');
+//         console.log(expenses);
+//     })
+    // .then((snapshot) => {
+    //     const expenses = [];
+    //     console.log('before forEach');
+    //     snapshot.forEach((childSnapshot) => {
+    //         console.log('doing stuff');
+    //         console.log(childSnapshot);
+    //         const expense = childSnapshot.val();
+    //         expenses.push({
+    //             id: childSnapshot.key,
+    //             des: expense.description,
+    //             note: expense.note,
+    //             time: expense.createdAt,
+    //             amount: expense.amount
+    //         })
+    //     })
+    //     console.log('after forEach');
+    //     console.log(expenses);
+    // });
+
+
+
+// database.ref('expenses').push({
+//     description: 'buy clothes',
+//     amount: 225.8,
+//     note: 'fancy clothes',
+//     createdAt: moment().valueOf()
+// })
+
+// database.ref('expenses').push({
+//     description: 'buy shoes',
+//     amount: 100,
+//     note: 'cheap shoes',
+//     createdAt: moment().valueOf()
+// })
+
+// database.ref('expenses').push({
+//     description: 'buy books',
+//     amount: 105.8,
+//     note: 'famous books',
+//     createdAt: moment().valueOf()
+// })
 
 // database.ref().set({
 //     name: 'thanh',
@@ -36,16 +126,16 @@ const database = firebase.database();
 //         console.log('something wrong happen', err);
 //     })
 
-database.ref().update({
-    name: 'thanh nguyen',
-    'location/city': 'hcm',
-    'location/district': 'Thu Duc'
-})
-.then(() => {
-    console.log('success updated');
-})
-.catch((err) => {
-    console.log(err);
-})
+// database.ref().update({
+//     name: 'thanh nguyen',
+//     'location/city': 'hcm',
+//     'location/district': 'Thu Duc'
+// })
+// .then(() => {
+//     console.log('success updated');
+// })
+// .catch((err) => {
+//     console.log(err);
+// })
 
 

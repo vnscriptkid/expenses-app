@@ -6,7 +6,7 @@ import moment from 'moment';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 
-class ExpenseListFilters extends React.Component {
+export class ExpenseListFilters extends React.Component {
     constructor(props) {
         super(props);
         this.state = {

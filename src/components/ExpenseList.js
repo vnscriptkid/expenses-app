@@ -3,28 +3,30 @@ import ExpenseListItem from './ExpenseListItem';
 import {connect} from 'react-redux';
 import ExpensesSelect from '../selectors/expenses';
 
-const ExpenseList = (props) => {      
+export const ExpenseList = (props) => {      
     return (
         <div>
             <h3>Expense List</h3>
-            <p>There are {props.expenses.length} item(s) in the expense list</p>
-            {props.expenses.map((expense, index) => (                
-                <ExpenseListItem 
-                    id={expense.id} 
-                    key={expense.id} 
-                    count={index+1} 
-                    des={expense.description} 
-                    amount={expense.amount} 
-                    createdAt={expense.createdAt}
-                />
-            ))}                  
+            { 
+                props.expenses.length > 0 ? (
+                    <p>There are {props.expenses.length} item(s) in the expense list</p>,
+                    props.expenses.map((expense, index) => (                
+                        <ExpenseListItem 
+                            id={expense.id} 
+                            key={expense.id} 
+                            count={index+1} 
+                            {...expense}
+                        />
+                    ))
+                ) : (
+                    <h4>There is no a single one Expense</h4>
+                )
+            }                                   
         </div>
     );
 } 
 
-const mapStateToProps = (state) => {
-    // console.log(state.expenses);
-    // console.log(state.filters);
+const mapStateToProps = (state) => {    
     return {
         expenses: ExpensesSelect(state.expenses, state.filters) 
     }
