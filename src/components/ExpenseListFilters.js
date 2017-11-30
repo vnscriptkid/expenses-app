@@ -1,45 +1,60 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setTextFilter, sortByAmount, sortByDate } from '../actions/filters';
+import { setTextFilter, sortByAmount, sortByDate, setStartDate, setEndDate } from '../actions/filters';
 import { DateRangePicker } from 'react-dates';
 import moment from 'moment';
-import 'react-dates/initialize';
-import 'react-dates/lib/css/_datepicker.css';
+// import 'react-dates/initialize';
+// import 'react-dates/lib/css/_datepicker.css';
 
 export class ExpenseListFilters extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            startDate: this.props.filters.startDate,
-            endDate: this.props.filters.endDate,
             focusedInput: null
         }
+        this.onTextChange = this.onTextChange.bind(this);
+        this.onSortChange = this.onSortChange.bind(this);
+        this.onDatesChange = this.onDatesChange.bind(this);
+        this.onFocusChange = this.onFocusChange.bind(this);
+    }
+
+    onTextChange(e) {
+        this.props.setTextFilter(e.target.value);
+    }
+
+    onSortChange(e) {
+        if (e.target.value === 'date') {
+            this.props.sortByDate();
+        } else if (e.target.value === 'amount') {
+            this.props.sortByAmount();
+        }
+    }
+
+    onDatesChange({startDate, endDate}) {
+        this.props.setStartDate(startDate);
+        this.props.setEndDate(endDate);
+    }
+
+    onFocusChange(focusedInput) {
+        this.setState(() => ({ focusedInput }))
     }
 
     render() {
         return (
             <div>
-                <input type="text" value={this.props.filters.text} onChange={(e) => {
-                    this.props.dispatch(setTextFilter(e.target.value));
-                }} />
+                <input type="text" value={this.props.filters.text} onChange={this.onTextChange} />
 
-                <select onChange={(e) => {                    
-                    if (e.target.value === 'date') {
-                        this.props.dispatch(sortByDate());
-                    } else if (e.target.value === 'amount') {
-                        this.props.dispatch(sortByAmount());
-                    }
-                }}>
+                <select onChange={this.onSortChange}>
                     <option value="date">Date</option>
                     <option value="amount">Amount</option>
                 </select>
                 
                 <DateRangePicker
-                    startDate={this.state.startDate} // momentPropTypes.momentObj or null,
-                    endDate={this.state.endDate} // momentPropTypes.momentObj or null,
-                    onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })} // PropTypes.func.isRequired,
+                    startDate={this.props.filters.startDate} // momentPropTypes.momentObj or null,
+                    endDate={this.props.filters.endDate} // momentPropTypes.momentObj or null,
+                    onDatesChange={this.onDatesChange} // PropTypes.func.isRequired,
                     focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
-                    onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
+                    onFocusChange={this.onFocusChange} // PropTypes.func.isRequired,
                     numberOfMonths={1}
                     isOutsideRange={() => false}
                 />
@@ -55,5 +70,13 @@ const mapStateToProps = (state) => {
     }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+    setTextFilter: (text) => dispatch(setTextFilter(text)),
+    sortByAmount: () => dispatch(sortByAmount()),
+    sortByDate: () => dispatch(sortByDate()),
+    setStartDate: (startDate) => dispatch(setStartDate(startDate)),
+    setEndDate: (endDate) => dispatch(setEndDate(endDate))
+})
+
 // export default ExpenseListFilters;
-export default connect(mapStateToProps)(ExpenseListFilters);
+export default connect(mapStateToProps, mapDispatchToProps)(ExpenseListFilters);

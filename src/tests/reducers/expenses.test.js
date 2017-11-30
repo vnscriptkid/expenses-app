@@ -62,7 +62,15 @@ test('should edit expense', () => {
 })
 
 test('should not edit if not found', () => {
-    
+    const action = {
+        type: 'EDIT_EXPENSE',
+        id: '100',
+        updates: {
+            description: 'Will not change anything'
+        }
+    }
+    const afterState = expensesReducer(expenses, action);
+    expect(afterState).toEqual(expenses);
 })
 
 

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import 'react-dates/initialize';
 import { SingleDatePicker } from 'react-dates';
-import 'react-dates/lib/css/_datepicker.css';
 
 export default class ExpenseForm extends Component {
     constructor(props) {
@@ -86,7 +85,8 @@ export default class ExpenseForm extends Component {
                     isOutsideRange={() => false}
                 />
                 <br />
-                <button>Add Expense</button>
+
+                <button>{this.props.functionButton}</button>
                 {this.state.error && <h3 style={{ color: 'red' }}>{this.state.error}</h3>}
             </form>
         )
