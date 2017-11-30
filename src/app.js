@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'normalize.css/normalize.css';
-import './styles/styles.scss';
 import AppRouter from './routers/AppRouter';
 import configureStore from './store/configureStore';
 import { Provider } from 'react-redux';
 import { addExpense } from './actions/expenses';
 import { setTextFilter } from './actions/filters';
 import './firebase/firebase';
+import 'normalize.css/normalize.css';
+import './styles/styles.scss';
 import 'react-dates/lib/css/_datepicker.css';
 import 'react-dates/initialize';
 // import './playground/promises';
@@ -21,7 +21,8 @@ store.dispatch(addExpense({description: 'buying furniture cost', amount:300, cre
 //     store.dispatch(setTextFilter('cost'));
 // }, 3000)
 
-console.log(store.getState());
+// console.log(store.getState());
+console.log('test');
 
 const jsx = (
     <Provider store={store}>
