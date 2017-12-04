@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import AppRouter from './routers/AppRouter';
 import configureStore from './store/configureStore';
 import { Provider } from 'react-redux';
-import { addExpense } from './actions/expenses';
+import { addExpense, startSetExpenses } from './actions/expenses';
 import { setTextFilter } from './actions/filters';
 import './firebase/firebase';
 import 'normalize.css/normalize.css';
@@ -13,15 +13,8 @@ import 'react-dates/initialize';
 // import './playground/promises';
 
 const store = configureStore();
-store.dispatch(addExpense({description: 'tuition fee', amount:100, createdAt:500}));
-store.dispatch(addExpense({description: 'renting house cost', amount:200, createdAt:300}));
-store.dispatch(addExpense({description: 'buying furniture cost', amount:300, createdAt:100}));    
+store.dispatch(startSetExpenses());
 
-// setTimeout(() => {
-//     store.dispatch(setTextFilter('cost'));
-// }, 3000)
-
-// console.log(store.getState());
 console.log('test');
 
 const jsx = (
@@ -29,6 +22,8 @@ const jsx = (
         <AppRouter />
     </Provider>
 );
+
+ReactDOM.render(<div> loading...</div>, document.getElementById('root'));
 
 ReactDOM.render(jsx, document.getElementById('root'));
 
