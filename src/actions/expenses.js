@@ -10,7 +10,8 @@ export const addExpense = (expense) => (
 )
 
 export const startAddExpense = (expenseData = {}) => {
-    return (dispatch) => {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
         const {
             description = '',
             note = '',
@@ -18,7 +19,7 @@ export const startAddExpense = (expenseData = {}) => {
             createdAt = 0
         } = expenseData;
         const expense = { description, note, amount, createdAt };
-        return database.ref('expenses').push(expense).then((ref) => {
+        return database.ref(`users/${uid}/expenses`).push(expense).then((ref) => {
             dispatch(addExpense({
                 id: ref.key,
                 ...expense
@@ -34,14 +35,12 @@ export const removeExpense = ( id ) => ({
 })
 
 export const startRemoveExpense = ( {id} = {} ) => {
-    return (dispatch) => {
-        return database.ref(`expenses/${id}`).remove()
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
+        return database.ref(`users/${uid}/expenses/${id}`).remove()
         .then(() => {
             dispatch(removeExpense(id));
         })
-        // .catch((err) => {
-        //     console.log(err);
-        // })
     }
 }
 
@@ -52,6 +51,17 @@ export const editExpense = (id, updates) => ({
     updates
 })
 
+export const startEditExpense = (id, updates) => {
+    return (dispatch, getState) => {
+        // get uid of the current user
+        const uid = getState().auth.uid;        
+        // ref to correct expense in db that need to edit
+        return database.ref(`users/${uid}/expenses/${id}`).update(updates).then(() => {
+            dispatch(editExpense(id, updates));
+        })
+    }
+}
+
 // SET EXPENSES
 export const setExpenses = (expenses) =>({
     type: 'SET_EXPENSES',
@@ -59,14 +69,17 @@ export const setExpenses = (expenses) =>({
 })
 
 export const startSetExpenses = () => {
-    return (dispatch) => {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
         // retrive data from db 
-        return database.ref('expenses').once('value').then( (snap) => {
+        return database.ref(`users/${uid}/expenses`).once('value').then( (snap) => {
             const expensesObject = snap.val();
-            // convert object to array
-            const expensesArray = Object.keys(expensesObject).map((key) => ({...expensesObject[key], id: key}));
-            // dispatch setExpenses with that array
-            dispatch(setExpenses(expensesArray))
+            if (expensesObject) {
+                // convert object to array
+                const expensesArray = Object.keys(expensesObject).map((key) => ({...expensesObject[key], id: key}));
+                // dispatch setExpenses with that array
+                dispatch(setExpenses(expensesArray))
+            }
         })
     }
 }
